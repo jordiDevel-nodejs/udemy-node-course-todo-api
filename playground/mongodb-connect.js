@@ -7,7 +7,7 @@ const {MongoClient, ObjectID} = require('mongodb');
 const url = 'mongodb://192.168.99.100:32768';
 const dbName = 'TodoApp';
 
-MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+MongoClient.connect(url, { useNewUrlParser: true, useFindAndModify: false }, (err, client) => {
     if (err) {
         return console.log('Unable to connect to MongoDB server');
     }

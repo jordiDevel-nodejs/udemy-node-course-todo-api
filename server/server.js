@@ -33,11 +33,31 @@ app.get('/todos', (req, res) => {
 });
 
 app.get('/todos/:id', (req, res) => {
-    if (!ObjectID.isValid(req.params.id)) {
+    const todoId = req.params.id;
+
+    if (!ObjectID.isValid(todoId)) {
         return res.status(404).send();
     }
 
-    Todo.findById(req.params.id).then((todo) => {
+    Todo.findById(todoId).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+        
+        res.send({ todo });
+    }).catch((ex) => {
+        res.status(400).send();
+    })
+});
+
+app.delete('/todos/:id', (req, res) => {
+    const todoId = req.params.id;
+
+    if (!ObjectID.isValid(todoId)) {
+        return res.status(404).send();
+    }
+
+    Todo.findByIdAndDelete(todoId).then((todo) => {
         if (!todo) {
             return res.status(404).send();
         }
