@@ -92,7 +92,7 @@ app.patch('/todos/:id', (req, res) => {
         res.send({ todo });
     }).catch((ex) => {
         res.status(400).send();
-    })
+    });
 });
 
 app.listen(port, () => {
