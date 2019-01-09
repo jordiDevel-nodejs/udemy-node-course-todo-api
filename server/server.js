@@ -96,6 +96,17 @@ app.patch('/todos/:id', (req, res) => {
     });
 });
 
+app.post('/users', (req, res) => {
+    const body = _.pick(req.body, ['email', 'password']);
+    const user = new User(body);
+
+    user.save().then((doc) => {
+        res.send(doc);
+    }).catch((ex) => {
+        res.status(400).send(ex);
+    });
+});
+
 app.listen(port, () => {
     console.log(`Started up at port ${port} on mode '${env}'`);
 });
