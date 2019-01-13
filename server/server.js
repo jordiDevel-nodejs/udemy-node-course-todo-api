@@ -7,6 +7,7 @@ const {env} = require('./config/config.js');
 const {mongoose} = require('./db/mongoose.js');
 const {Todo} = require('./models/todo.js');
 const {User} = require('./models/user.js');
+const {autenticate} = require('./middleware/authenticate');
 
 const app = express();
 
@@ -107,6 +108,10 @@ app.post('/users', (req, res) => {
     }).catch((ex) => {
         res.status(400).send(ex);
     });
+});
+
+app.get('/users/me', autenticate, (req, res) => {
+    res.send(req.user);
 });
 
 app.listen(port, () => {
